@@ -32,6 +32,44 @@ Based on the design, the agent aims to handle:
 * **Python:** The primary programming language.
 * Various Python libraries for tools (see `requirements.txt`).
 
+## Agent Architecture (LangGraph)
+
+The agent's core logic is implemented as a state graph using LangGraph. This allows for complex, cyclical, and conditional flows of execution. Below is a visual representation of the main graph structure:
+
+![Agent Workflow Graph](./agent_workflow_graph.png) 
+
+**Key Components and Flow:**
+
+* **`__start__` -> `initialize_agent`**: The graph starts by initializing the agent's state, including the original question and task ID.
+* **`plan_next_step`**: This is the main planning node where the LLM is invoked. Based on the current question, intermediate steps, and available tools, the LLM decides:
+    * To call a specific tool.
+    * To initiate a specialized sub-graph (for searching or Excel processing).
+    * To provide a direct answer.
+    * This node uses a comprehensive system prompt to guide the LLM.
+* **`execute_tool`**: If the planner decides to use a standard tool (e.g., `FileDownloaderTool`, `PythonInterpreterTool`, `YouTubeVideoAnalysisTool`, `MultimodalProcessingTool`, `ChessAnalysisTool`), this node executes it and adds the result to the `intermediate_steps` in the agent's state.
+* **Conditional Routing (Dotted Lines)**: After `plan_next_step` or `execute_tool`, a router function (`should_continue_or_finish` in the code) determines the next step:
+    * Proceed to `execute_tool` if a tool was selected.
+    * Enter one ofthe sub-graphs.
+    * Loop back to `plan_next_step` for replanning if more steps are needed or an error occurred.
+    * Transition to `__end__` if a final answer is available or a critical error/max iterations are reached.
+* **Search Sub-Graph:**
+    * Triggered by the `INITIATE_SEARCH_SUB_GRAPH` action from `plan_next_step`.
+    * **`prepare_search_sub_graph`**: Initializes the state for the search sub-process.
+    * **`search_query_refiner_or_planner_llm`**: An LLM call dedicated to refining the search query or deciding if the current search results are sufficient. It can loop back to execute another search or finalize.
+    * **`execute_native_search_node`**: Executes the actual web search (in your case, via the `external_Google Search_EXACT.py` script).
+    * **`finalize_search_sub_graph`**: Processes the search results and prepares a summary to be added to the main agent's `intermediate_steps` before returning to `plan_next_step`.
+* **Excel Sub-Graph:**
+    * Triggered by the `REQUEST_EXCEL_PROCESSING` action from `plan_next_step`.
+    * **`prepare_excel_processing`**: Initializes the state for Excel processing.
+    * **`excel_llm_planner_coder`**: A dedicated LLM call to generate Python (pandas) code for inspecting or querying the Excel file. This LLM only has access to the `PythonInterpreterTool`.
+    * **`execute_excel_python_code`**: Runs the generated pandas code using the `PythonInterpreterTool`.
+    * The Excel sub-graph can iterate, allowing the `excel_llm_planner_coder` to refine the pandas code based on previous execution results or errors.
+    * **`finalize_excel_processing`**: Takes the result from the pandas code execution and adds it to the main agent's `intermediate_steps`, then returns to `plan_next_step`.
+* **`call_external_search_node`**: The graph also shows a direct path for this node. You might want to clarify in the text if this is an alternative or older path compared to the search sub-graph, or if it serves a different specific search purpose. [cite: 37, 38]
+* **`__end__`**: Represents the termination of the agent's process for a given question, usually when a `final_answer` is populated in the state.
+
+The agent state (`AgentState`) is passed between nodes, with each node potentially modifying it. The use of `intermediate_steps` and specific history arrays within sub-graphs (like `excel_code_execution_history`) allows the LLM to maintain context and learn from previous attempts within a task.
+
 ## External Components & Credits
 
 * **Chess FEN Generator:** The chess image-to-FEN capability relies on an external Python script. The FEN generation from chess diagrams is based on by the work found at https://github.com/tsoj/Chess_diagram_to_FEN.
