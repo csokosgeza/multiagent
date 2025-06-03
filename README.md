@@ -1,6 +1,10 @@
-# My First GAIA Benchmark Agent with LangGraph
+# My First Agent with LangGraph for Hugging Face Agent Course
 
-Welcome to my first attempt at creating an agent for the GAIA (General AI Assistants) benchmark! This project is a learning exercise, primarily focused on exploring the capabilities of LangGraph for building complex, tool-using AI agents.
+Welcome to my project for the Hugging Face Agent Course! This agent was developed to tackle a selection of Level 1 questions from the GAIA (General AI Assistants) benchmark. It's my first significant exploration into building complex, tool-using AI agents using LangGraph.
+
+The primary goal was to create a functional agent capable of addressing these specific GAIA questions. I'm aware that this is a learning project and there's significant room for improvement and further development as I continue to explore the fascinating world of AI agents.
+
+**Disclaimer:** This is a work in progress and represents my initial efforts in this domain.
 
 The agent is designed to tackle a subset of GAIA Level 1 questions, leveraging various tools and sub-graphs for specialized tasks. While the primary goal was to make it functional, I'm aware there's significant room for improvement and further development.
 
@@ -30,7 +34,8 @@ Based on the design, the agent aims to handle:
 * **LangGraph & LangChain:** For agent orchestration and state management.
 * **Google Gemini:** As the core Large Language Model.
 * **Python:** The primary programming language.
-* Various Python libraries for tools (see `requirements.txt`).
+* External Tools: Stockfish, custom Python scripts for FEN generation and Google Search.
+* (See `requirements.txt` for a full list of Python libraries.)
 
 ## Agent Architecture (LangGraph)
 
@@ -100,11 +105,14 @@ This project has many areas for potential enhancement, including (inspired by a 
 * **Code Modularity:** Potentially breaking down the very long `my_langgraph_agent.py` into smaller, more manageable modules.
 * **Search Mechanism:** Consolidating search logic, potentially replacing the external search script with a direct SDK integration if feasible.
 
-## Support My Work
+## Support My Learning Journey
 
-If you find this project interesting or it helps you in your learning journey, I'd be grateful for your support!
+If you find this project interesting or it inspires you, I'd appreciate your support! It helps me dedicate more time to learning and building cool things with AI.
 
-https://buymeacoffee.com/csokosgeza
+<a href="https://www.buymeacoffee.com/csokosgeza" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+*(Alternatively, for a simpler text link: You can support me on [Buy Me a Coffee](https://www.buymeacoffee.com/csokosgeza).)*
+
 
 
 ---
