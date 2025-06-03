@@ -111,8 +111,5 @@ If you find this project interesting or it inspires you, I'd appreciate your sup
 
 <a href="https://www.buymeacoffee.com/csokosgeza" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-*(Alternatively, for a simpler text link: You can support me on [Buy Me a Coffee](https://www.buymeacoffee.com/csokosgeza).)*
-
-
 
 ---
