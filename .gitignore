@@ -1,0 +1,21 @@
+
+# API kulcsokat és környezeti változókat tartalmazó fájl
+.env
+
+# Python cache és virtuális környezet mappák (ha használsz)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+.env/
+*.egg-info/
+dist/
+build/
+
+# Egyéb, általad nem kívánt fájlok vagy mappák
+# pl. temp_gaia_files/ (ha nem akarod a letöltött fájlokat is feltölteni)
+# *.log (ha vannak helyi logfájljaid, amiket nem akarsz megosztani)
+# *.tmp
