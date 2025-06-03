@@ -34,7 +34,7 @@ Based on the design, the agent aims to handle:
 
 ## External Components & Credits
 
-* **Chess FEN Generator:** The chess image-to-FEN capability relies on an external Python script. If you are using a specific public repository for this, please credit it here. (e.g., "The FEN generation from chess diagrams is based on/inspired by the work found at [LINK_TO_FEN_GENERATOR_REPO_IF_APPLICABLE]").
+* **Chess FEN Generator:** The chess image-to-FEN capability relies on an external Python script. The FEN generation from chess diagrams is based on by the work found at https://github.com/tsoj/Chess_diagram_to_FEN.
 * **Stockfish:** For chess analysis.
 
 ## How to Run (High-Level)
@@ -66,7 +66,7 @@ This project has many areas for potential enhancement, including (inspired by a 
 
 If you find this project interesting or it helps you in your learning journey, I'd be grateful for your support!
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)]((https://buymeacoffee.com/csokosgeza))
+https://buymeacoffee.com/csokosgeza
 
 
 ---
